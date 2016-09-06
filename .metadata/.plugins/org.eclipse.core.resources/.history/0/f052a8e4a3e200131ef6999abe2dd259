@@ -1,0 +1,195 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+//Victor Chan, Anirudh Makineni
+
+class Graph extends JComponent {
+	
+	final int SIZE = 4;
+	double lowerxbound = -10.0;
+	double upperxbound = 10.0;
+	double lowerybound = -10.0;
+	double upperybound = 10.0;
+	int afterExtrema = 0;
+	Color purple = new Color(128,0,128);
+	
+	double x = 0.0;
+	
+	public void paint(Graphics g){
+		g.clearRect(0,0,500,500);
+		double xaxisunits = 500 / (upperxbound - lowerxbound);
+		double yaxisunits = 500 / (upperybound - lowerybound);
+		g.fillRect(0,500+(int) (Math.round(lowerybound*yaxisunits)),500,3);
+		g.fillRect(500-(int) (Math.round(upperxbound*xaxisunits)),0,3,500);
+		double abscissa = 0.0;
+		double ordinate = 0.0;
+		double fd = 0.0;
+		double fd1 = 0.0;
+		double sd = 0.0;
+		int size = SIZE;
+		for (x=lowerxbound;x<upperxbound;x+=(upperxbound-lowerxbound)/50000){
+			double abscissa1 = abscissa;
+			double ordinate1 = ordinate;
+			sd = (fd-fd1)/(abscissa-abscissa1);
+			abscissa = x;
+			/////////////////////////////////////////////////////////
+			/////////////////////////////////////////////////////////
+			/////////////////////////////////////////////////////////
+			/////////////////////////////////////////////////////////
+			/////////////////////////////////////////////////////////
+			//Place your equation here
+			double y = x*x*x;
+			//Place your equation here
+			/////////////////////////////////////////////////////////
+			/////////////////////////////////////////////////////////
+			/////////////////////////////////////////////////////////
+			/////////////////////////////////////////////////////////
+			/////////////////////////////////////////////////////////
+			ordinate = y;
+			fd1 = fd;
+			fd = (ordinate-ordinate1)/(abscissa-abscissa1);
+			if (Math.abs(fd)<0.001 && Math.abs(sd)>0.001){
+				g.setColor(purple);
+				size = SIZE + 2;
+				g.fillRect((int) (Math.round(abscissa*xaxisunits))+500-(int) (Math.round(upperxbound*xaxisunits))-2,500+(int) (Math.round(lowerybound*yaxisunits))-(int) (Math.round(ordinate*yaxisunits))-2,size,size);
+				size = SIZE;
+				afterExtrema = 150;
+			}
+			else {
+				if (afterExtrema!=0){
+					afterExtrema--;
+					g.setColor(purple);
+					g.fillRect((int) (Math.round(abscissa*xaxisunits))+500-(int) (Math.round(upperxbound*xaxisunits)),500+(int) (Math.round(lowerybound*yaxisunits))-(int) (Math.round(ordinate*yaxisunits)),size,size);
+					g.setColor(Color.green);
+					g.fillRect((int) (Math.round(abscissa*xaxisunits))+500-(int) (Math.round(upperxbound*xaxisunits)),500+(int) (Math.round(lowerybound*yaxisunits))-(int) (Math.round(((ordinate-ordinate1)/(abscissa-abscissa1))*yaxisunits)),size-3,size-3);
+					g.setColor(Color.blue);
+					g.fillRect((int) (Math.round(abscissa*xaxisunits))+500-(int) (Math.round(upperxbound*xaxisunits)),500+(int) (Math.round(lowerybound*yaxisunits))-(int) (Math.round(sd*yaxisunits)),size-3,size-3);
+				}
+				else {
+					g.setColor(Color.red);
+					g.fillRect((int) (Math.round(abscissa*xaxisunits))+500-(int) (Math.round(upperxbound*xaxisunits)),500+(int) (Math.round(lowerybound*yaxisunits))-(int) (Math.round(ordinate*yaxisunits)),size,size);
+					g.setColor(Color.green);
+					g.fillRect((int) (Math.round(abscissa*xaxisunits))+500-(int) (Math.round(upperxbound*xaxisunits)),500+(int) (Math.round(lowerybound*yaxisunits))-(int) (Math.round(((ordinate-ordinate1)/(abscissa-abscissa1))*yaxisunits)),size-3,size-3);
+					g.setColor(Color.blue);
+					g.fillRect((int) (Math.round(abscissa*xaxisunits))+500-(int) (Math.round(upperxbound*xaxisunits)),500+(int) (Math.round(lowerybound*yaxisunits))-(int) (Math.round(sd*yaxisunits)),size-3,size-3);
+				}
+			}			
+		}
+	}
+}
+
+public class Grapher extends JFrame{
+	
+	public static void main(String args[]){
+		JFrame Graph = new JFrame("Graph");
+		Graph.setSize(750,540);
+		Graph.setLocationRelativeTo(null);
+		Graph.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Graph.setVisible(true);
+		
+		JPanel Controls = new JPanel();
+		Controls.setLayout(null);
+		Graph.add(Controls);
+		Font font = new Font("Sans Serif",0,20);
+		
+		final Graph graphWindow = new Graph();
+		graphWindow.setBounds(0,0,500,500);
+		Controls.add(graphWindow);
+	    
+		JLabel xMin = new JLabel("xMin");
+		xMin.setBounds(515,50,50,30);
+		xMin.setFont(font);
+		Controls.add(xMin);
+		
+		final JTextArea lowerxboundset = new JTextArea("-10.0");
+		lowerxboundset.setLineWrap(true);
+		lowerxboundset.setBounds(570,50,150,30);
+		lowerxboundset.setFont(font);
+		Controls.add(lowerxboundset);
+	    
+		JLabel xMax = new JLabel("xMax");
+		xMax.setBounds(515,100,50,30);
+		xMax.setFont(font);
+		Controls.add(xMax);
+		
+		final JTextArea upperxboundset = new JTextArea("10.0");
+		upperxboundset.setLineWrap(true);
+		upperxboundset.setBounds(570,100,150,30);
+		upperxboundset.setFont(font);
+		Controls.add(upperxboundset);
+	    
+		JLabel yMin = new JLabel("yMin");
+		yMin.setBounds(515,150,50,30);
+		yMin.setFont(font);
+		Controls.add(yMin);
+		
+		final JTextArea loweryboundset = new JTextArea("-10.0");
+		loweryboundset.setLineWrap(true);
+		loweryboundset.setBounds(570,150,150,30);
+		loweryboundset.setFont(font);
+		Controls.add(loweryboundset);
+	    
+		JLabel yMax = new JLabel("yMax");
+		yMax.setBounds(515,200,50,30);
+		yMax.setFont(font);
+		Controls.add(yMax);
+		
+		final JTextArea upperyboundset = new JTextArea("10.0");
+		upperyboundset.setLineWrap(true);
+		upperyboundset.setBounds(570,200,150,30);
+		upperyboundset.setFont(font);
+		Controls.add(upperyboundset);
+		
+		JButton GraphButton = new JButton("Graph");
+		GraphButton.setBounds(525,250,100,50);
+		GraphButton.setFont(font);
+		Controls.add(GraphButton);
+	    
+	   GraphButton.addActionListener(new ActionListener(){
+	        public void actionPerformed(ActionEvent event){
+        		double lxb = Double.parseDouble(lowerxboundset.getText());
+        		double uxb = Double.parseDouble(upperxboundset.getText());
+        		double lyb = Double.parseDouble(loweryboundset.getText());
+        		double uyb = Double.parseDouble(upperyboundset.getText());
+        		if (lxb < uxb && lyb < uyb){
+        			graphWindow.lowerxbound = lxb;
+        			graphWindow.upperxbound = uxb;
+        			graphWindow.lowerybound = lyb;
+        			graphWindow.upperybound = uyb;
+        			graphWindow.repaint();
+        		}
+        		else System.out.println("Error");
+        	}
+		});
+		
+		JButton ZoomInButton = new JButton("+");
+		GraphButton.setBounds(525,325,40,40);
+		GraphButton.setFont(font);
+		Controls.add(ZoomInButton);
+		
+		JButton ZoomOutButton = new JButton("-");
+		GraphButton.setBounds(575,325,40,40);
+		GraphButton.setFont(font);
+		Controls.add(ZoomOutButton);
+	    
+		ZoomInButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event){
+       			graphWindow.lowerxbound *= 5;
+       			graphWindow.upperxbound *= 5;
+       			graphWindow.lowerybound *= 5;
+       			graphWindow.upperybound *= 5;
+       			graphWindow.repaint();
+        	}
+		});
+	    
+		ZoomOutButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event){
+       			graphWindow.lowerxbound /= 5;
+       			graphWindow.upperxbound /= 5;
+       			graphWindow.lowerybound /= 5;
+       			graphWindow.upperybound /= 5;
+       			graphWindow.repaint();
+        	}
+		});
+	}
+}

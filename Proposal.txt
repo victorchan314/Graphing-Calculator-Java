@@ -1,0 +1,9 @@
+Team: Victor Chan, Anirudh Makineni, Kashyap Gummaraju
+
+The project's goal is to create a graphing calculator that can not only graph graphs, but also
+graph the first and second derivatives of a graph and relative minima and maxima, in addition
+to points of inflection.In addition, concavity will be marked on the graph.
+
+For Calculus BC, Victor Chan has already made a simple graphing calculator that can graph graphs.
+That code will be used for the actual graph. However, as an extension to the project, the derivatives,
+extrema, points of inflection, and concavity will be added.

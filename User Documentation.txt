@@ -1,0 +1,16 @@
+Graphing Calculator
+by Anirudh Makineni, Victor Chan, Kashyap Gummaraju
+
+The graphing calculator is easy to use. To graph an equation, type the equation into the code where it should be (it
+will be obvious when you see it). Run the program. A GUI window should open, with a legend showing the different colors
+and what they mean.
+The thick red line is the main graph. The thinner green one is the first derivative, while the blue one is the second
+derivative. Critical points are shown with purple dots. Any relative maxima, minima, and points of inflection will be shown.
+The axes are shown in black.
+To move the graph around, there are controls on the right hand side. You may have to maximize and minimize the window to
+be able to see the controls (this happens with Java frames). At the bottom are four arrows that move the graph up, down,
+left, and right. In addition, there are two buttons for zooming in and zooming out. If you want to customize the bounds
+for the graph, type them in to the text boxes and click "Graph." If there are any errors in the bounds, an error message
+will show up. Please fix the bounds like the box specifies.
+
+We hope you have a great time with the graphing calculator!
